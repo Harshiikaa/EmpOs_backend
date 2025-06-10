@@ -3,9 +3,11 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./database/db");
 const { log } = require("./utils/logger");
+const departmentRoutes = require('./routes/departmentRoute')
 const app = express();
 
 app.use(express.json());
+const port = 3001;
 
 dotenv.config();
 
@@ -16,6 +18,12 @@ const corsPolicy = {
 };
 app.use(cors(corsPolicy));
 connectDB();
+
+
+
+
+app.use('/api/department', departmentRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Express backend is running!");
@@ -30,6 +38,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  log(`Backend server running on http://localhost:${process.env.PORT}`);
+app.listen(port, () => {
+  log(`Backend server running on http://localhost:${port}`);
 });
