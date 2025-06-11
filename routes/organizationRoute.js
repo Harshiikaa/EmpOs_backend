@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { createOrganization } = require("../controllers/organizationController");
+const {
+  createOrganization,
+  login,
+} = require("../controllers/organizationController");
 const asyncHandler = require("../middlewares/asyncHandler");
 const {
   validateCreateOrganization,
+  validateLogin,
 } = require("../validators/organizationValidator");
 const {
   handleValidationErrors,
@@ -14,6 +18,13 @@ router.post(
   validateCreateOrganization,
   handleValidationErrors,
   asyncHandler(createOrganization)
+);
+
+router.post(
+  "/login",
+  validateLogin,
+  handleValidationErrors,
+  asyncHandler(login)
 );
 
 module.exports = router;

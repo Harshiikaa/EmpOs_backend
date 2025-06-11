@@ -83,3 +83,17 @@ exports.validateCreateOrganization = [
     .isIn(["pending", "accepted", "rejected"])
     .withMessage("Invalid acceptance status"),
 ];
+
+exports.validateLogin = [
+  body("adminEmail")
+    .notEmpty()
+    .withMessage("Admin email is required")
+    .isEmail()
+    .withMessage("Invalid email format"),
+
+  body("password")
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters"),
+];
