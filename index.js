@@ -4,6 +4,8 @@ const cors = require("cors");
 const connectDB = require("./database/db");
 const { log } = require("./utils/logger");
 const departmentRoutes = require('./routes/departmentRoute')
+const organizationRoutes = require('./routes/organizationRoute')
+
 const app = express();
 
 app.use(express.json());
@@ -23,6 +25,8 @@ connectDB();
 
 
 app.use('/api/department', departmentRoutes);
+app.use('/api/admin/organizations', organizationRoutes);
+
 
 
 app.get("/", (req, res) => {
