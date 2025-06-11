@@ -24,7 +24,7 @@ connectDB();
 
 
 
-app.use('/api/department', departmentRoutes);
+app.use('/api/admin/department', departmentRoutes);
 app.use('/api/admin/organizations', organizationRoutes);
 
 

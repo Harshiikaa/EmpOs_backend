@@ -9,9 +9,11 @@ const {
   validateCreateDepartment,
 } = require("../validators/departmentValidator");
 const asyncHandler = require("../middlewares/asyncHandler");
+const { protect } = require("../middlewares/authMiddleware");
 
 router.post(
   "/createDepartment",
+  protect,
   validateCreateDepartment,
   handleValidationErrors,
   asyncHandler(createDepartment)

@@ -59,6 +59,11 @@ const organizationSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      enum: ["admin"],
+      default: "admin",
+    },
     status: {
       type: String,
       enum: ["active", "inactive"],

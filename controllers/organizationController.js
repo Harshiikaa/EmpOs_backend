@@ -43,26 +43,34 @@ const createOrganization = async (req, res) => {
 const login = async (req, res) => {
   const { adminEmail, password } = req.body;
 
-  const admin = await Organization.findOne({ adminEmail });
-  const isPasswordValid = admin && (await admin.comparePassword(password));
+  const organization = await Organization.findOne({ adminEmail });
+  const isPasswordValid =
+    organization && (await organization.comparePassword(password));
   if (!isPasswordValid) {
     return sendError(res, 401, "Invalid email or password");
   }
-  const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
+  const token = jwt.sign(
+    {
+      id: organization._id,
+      role: "admin",
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1d",
+    }
+  );
   return sendSuccess(
     res,
     {
       token,
-      admin: {
-        _id: admin._id,
-        organizationName: admin.organizationName,
-        adminFirstName: admin.adminFirstName,
-        adminLastName: admin.adminLastName,
-        adminEmail: admin.adminEmail,
-        plan: admin.plan,
-        status: admin.status,
+      organization: {
+        _id: organization._id,
+        organizationName: organization.organizationName,
+        adminFirstName: organization.adminFirstName,
+        adminLastName: organization.adminLastName,
+        adminEmail: organization.adminEmail,
+        plan: organization.plan,
+        status: organization.status,
       },
     },
     "Login successful",

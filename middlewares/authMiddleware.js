@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
 const asyncHandler = require("./asyncHandler");
-const { sendError } = require("../utils/responseHandler"); // path to your helpers
+const { sendError } = require("../utils/response");
+const Organization = require("../models/organization");
 
 const protect = asyncHandler(async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
@@ -10,34 +10,43 @@ const protect = asyncHandler(async (req, res, next) => {
     return sendError(res, new Error("No token provided"), 401);
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = await User.findById(decoded.id).select("-password");
+  const org = await Organization.findById(decoded.id).select("-password");
+  // console.log("Decoded ID in middleware:", decoded.id);
+  // console.log("req.user set to:", req.user);
+  // console.log("Org found in DB:", org);
 
-    if (!req.user) {
-      return sendError(res, new Error("User not found"), 401);
-    }
-
-    next();
-  } catch (err) {
-    return sendError(res, new Error("Invalid or expired token"), 401);
+  if (!org) {
+    return sendError(res, new Error("Admin not found"), 401);
   }
+
+  req.user = org;
+
+  next();
 });
 
+// const admin = (req, res, next) => {
+//   if (!req.user || req.user.role !== "admin") {
+//     return sendError(
+//       res,
+//       new Error("You are not authorized to access this route"),
+//       403
+//     );
+//   }
+//   next();
+// };
+// const authorizeRoles = (...allowedRoles) => {
+//   return (req, res, next) => {
+//     if (!req.user || !allowedRoles.includes(req.user.role)) {
+//       return sendError(
+//         res,
+//         new Error(`Access denied. Requires role: ${allowedRoles.join(", ")}`),
+//         403
+//       );
+//     }
+//     next();
+//   };
+// };
 
-
-const authorizeRoles = (...allowedRoles) => {
-  return (req, res, next) => {
-    if (!req.user || !allowedRoles.includes(req.user.role)) {
-      return sendError(
-        res,
-        new Error(`Access denied. Requires role: ${allowedRoles.join(", ")}`),
-        403
-      );
-    }
-    next();
-  };
-};
-
-module.exports = { protect, authorizeRoles };
+module.exports = { protect };
