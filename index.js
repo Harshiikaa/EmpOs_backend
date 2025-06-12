@@ -3,8 +3,9 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./database/db");
 const { log } = require("./utils/logger");
-const departmentRoutes = require('./routes/departmentRoute')
-const organizationRoutes = require('./routes/organizationRoute')
+const departmentRoutes = require("./routes/departmentRoute");
+const organizationRoutes = require("./routes/organizationRoute");
+const employeeRoutes = require("./routes/employeeRoutes");
 
 const app = express();
 
@@ -21,13 +22,9 @@ const corsPolicy = {
 app.use(cors(corsPolicy));
 connectDB();
 
-
-
-
-app.use('/api/admin/department', departmentRoutes);
-app.use('/api/admin/organizations', organizationRoutes);
-
-
+app.use("/api/admin/department", departmentRoutes);
+app.use("/api/admin/organizations", organizationRoutes);
+app.use("/api/admin/employee", employeeRoutes);
 
 app.get("/", (req, res) => {
   res.send("Express backend is running!");

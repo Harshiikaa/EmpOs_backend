@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { createDepartment } = require("../controllers/departmentController");
+const {
+  createDepartment,
+  getDepartments,
+  getDepartmentList,
+} = require("../controllers/departmentController");
 const {
   handleValidationErrors,
 } = require("../middlewares/validationMiddleware");
@@ -18,5 +22,8 @@ router.post(
   handleValidationErrors,
   asyncHandler(createDepartment)
 );
+
+router.get("/", protect, asyncHandler(getDepartments));
+router.get("/departmentList", protect, asyncHandler(getDepartmentList));
 
 module.exports = router;

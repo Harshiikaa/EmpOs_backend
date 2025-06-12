@@ -21,3 +21,4 @@ exports.validateCreateDepartment = [
     .isMongoId()
     .withMessage("Each employee must be a valid MongoDB ObjectId"),
 ];
+
