@@ -30,8 +30,8 @@ const createEmployee = async (req, res) => {
     status,
     employeeImage,
   });
-  console.log("Creating employees for org ID:", req.user._id);
-  console.log("Logged-in user:", req.user);
+  // console.log("Creating employees for org ID:", req.user._id);
+  // console.log("Logged-in user:", req.user);
   //   return sendSuccess(res, employee, "Employee created successfully");
   // manually extracted departmentName by changing the employee to object
   return sendSuccess(
