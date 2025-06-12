@@ -25,7 +25,10 @@ exports.validateCreateEmployees = [
   body("position").notEmpty().withMessage("Position is required"),
 
   body("managerId").optional().isMongoId().withMessage("Invalid manager ID"),
-
+  body("role")
+    .isIn(["Employee", "HR", "Manager"])
+    .withMessage("Role must be Employee, HR or Manager"),
+  body("previlege").isBoolean().withMessage("Previlage must be true or false"),
   body("joinDate")
     .optional()
     .isISO8601()

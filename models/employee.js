@@ -48,6 +48,15 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    role: {
+      type: String,
+      enum: ["Manager", "HR", "Employee"],
+      default: "Employee",
+    },
+    previlege: {
+      type: Boolean,
+      default: false,
+    },
     joinDate: {
       type: Date, // is this needed because we will have timestamp too but still
       default: Date.now,
