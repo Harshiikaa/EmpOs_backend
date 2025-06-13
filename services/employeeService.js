@@ -1,6 +1,9 @@
 const Department = require("../models/department");
 const Employee = require("../models/employee");
 const { sendError } = require("../utils/response");
+const {
+  default_employee_avatar,
+} = require("../assets/images/default-employee-avatar.jpg");
 
 const createEmployee = async (organizationId, employeeData) => {
   const {
@@ -22,6 +25,8 @@ const createEmployee = async (organizationId, employeeData) => {
   if (!dept) {
     sendError(res, 401, "Depratment does not exist");
   }
+
+  const image = employeeImage?.trim() || default_employee_avatar;
   const employee = await Employee.create({
     organization: organizationId,
     firstName,
@@ -34,7 +39,7 @@ const createEmployee = async (organizationId, employeeData) => {
     previlege,
     joinDate,
     status,
-    employeeImage,
+    employeeImage: image,
   });
 
   return {

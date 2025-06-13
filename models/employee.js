@@ -47,7 +47,7 @@ const employeeSchema = new mongoose.Schema(
     },
     employeeImage: {
       type: String,
-      default: null,
+      required: true,
     },
     role: {
       type: String,
