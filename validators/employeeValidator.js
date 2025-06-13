@@ -1,4 +1,5 @@
 const { body } = require("express-validator");
+const { EMPLOYEE_ROLES, EMPLOYEE_STATUSES } = require("../constants/enums");
 
 exports.validateCreateEmployees = [
   body("firstName")
@@ -26,8 +27,8 @@ exports.validateCreateEmployees = [
 
   body("managerId").optional().isMongoId().withMessage("Invalid manager ID"),
   body("role")
-    .isIn(["Employee", "HR", "Manager"])
-    .withMessage("Role must be Employee, HR or Manager"),
+    .isIn(EMPLOYEE_ROLES)
+    .withMessage(`Role must be one of : ${EMPLOYEE_ROLES.join(", ")}`),
   body("previlege").isBoolean().withMessage("Previlage must be true or false"),
   body("joinDate")
     .optional()
@@ -36,8 +37,8 @@ exports.validateCreateEmployees = [
 
   body("status")
     .optional()
-    .isIn(["Active", "On Leave", "Inactive"])
-    .withMessage("Status must be Active, On Leave, or Inactive"),
+    .isIn(EMPLOYEE_STATUSES)
+    .withMessage(`Status must be one of : ${EMPLOYEE_STATUSES.join(", ")}`),
   body("employeeImage").optional(),
   // .isURL()
   // .withMessage("Employee image must be a valid URL"),

@@ -1,4 +1,10 @@
 const { body } = require("express-validator");
+const {
+  PLAN,
+  ORGANIZATION_STATUS,
+  ACCEPTANCE_STATUS,
+  ORGANIZATION_SIZE,
+} = require("../constants/enums");
 
 exports.validateCreateOrganization = [
   body("organizationName")
@@ -34,13 +40,15 @@ exports.validateCreateOrganization = [
 
   body("size")
     .optional()
-    .isIn(["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"])
-    .withMessage("Invalid organization size"),
+    .isIn(ORGANIZATION_SIZE)
+    .withMessage(
+      `Organization size must be one of: ${ORGANIZATION_SIZE.join(", ")}`
+    ),
 
   body("plan")
     .optional()
-    .isIn(["free", "basic", "professional", "enterprise"])
-    .withMessage("Invalid plan"),
+    .isIn(PLAN)
+    .withMessage(`Plan must be from : ${PLAN.join(", ")}`),
 
   body("adminFirstName")
     .notEmpty()
@@ -75,13 +83,15 @@ exports.validateCreateOrganization = [
 
   body("status")
     .optional()
-    .isIn(["active", "inactive"])
-    .withMessage("Invalid status"),
+    .isIn(ORGANIZATION_STATUS)
+    .withMessage(`Status must be one of: ${ORGANIZATION_STATUS.join(", ")}`),
 
   body("acceptanceStatus")
     .optional()
-    .isIn(["pending", "accepted", "rejected"])
-    .withMessage("Invalid acceptance status"),
+    .isIn(ACCEPTANCE_STATUS)
+    .withMessage(
+      `Acceptance status must be one of: ${ACCEPTANCE_STATUS.join(", ")}`
+    ),
 ];
 
 exports.validateLogin = [

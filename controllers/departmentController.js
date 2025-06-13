@@ -1,38 +1,35 @@
 const Department = require("../models/department");
 const { sendSuccess, sendError } = require("../utils/response");
+const departmentService = require("../services/departmentService");
 
+// Creates department but only but the admin of the assigned organization
 const createDepartment = async (req, res) => {
   const { departmentName } = req.body;
-
-  const department = await Department.create({
-    departmentName,
-    organization: req.user._id,
-  });
-
+  const department = await departmentService.createDepartment(
+    req.user._id,
+    departmentName
+  );
   return sendSuccess(res, department, "Successfully Department Created", 201);
 };
 
+// get Departments
 const getDepartments = async (req, res) => {
   const orgId = req.user._id;
-  const departments = await Department.find({ organization: orgId });
-  if (!departments || departments.length === 0) {
-    return sendError(res, new Error("No departments found"), 404);
-  }
+  const departments = await departmentService.getDepartments(orgId);
+  // if (!departments || departments.length === 0) {
+  //   return sendError(res, new Error("No departments found"), 404);
+  // }
   sendSuccess(res, departments, "Departments detail fetched successfully", 200);
 };
 
 const getDepartmentList = async (req, res) => {
   const orgId = req.user._id;
-  const departmentList = await Department.find(
-    { organization: orgId },
-    "departmentName"
-  );
-  if (!departmentList || departmentList.length === 0) {
-    return sendError(res, new Error("No departments found"), 404);
-  }
+  const departmentList = await departmentService.getDepartmentList(orgId);
+  // if (!departmentList || departmentList.length === 0) {
+  //   return sendError(res, new Error("No departments found"), 404);
+  // }
   sendSuccess(res, departmentList, "Departments listed successfully", 200);
 };
-
 
 module.exports = {
   createDepartment,
