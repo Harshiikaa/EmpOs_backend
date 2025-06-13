@@ -8,10 +8,8 @@ const organizationRoutes = require("./routes/organizationRoute");
 const employeeRoutes = require("./routes/employeeRoutes");
 
 const app = express();
-
 app.use(express.json());
 const port = 3001;
-
 dotenv.config();
 
 const corsPolicy = {
@@ -34,7 +32,7 @@ app.use((err, req, res, next) => {
   log(`Error: ${err.message}`);
   res.status(500).json({
     success: false,
-    message: "Internal Server Error",
+    message: "Please contact to your Service",
     errors: [err.message],
   });
 });

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { EMPLOYEE_STATUSES, EMPLOYEE_ROLES } = require("../constants/enums");
 
 const employeeSchema = new mongoose.Schema(
   {
@@ -41,7 +42,7 @@ const employeeSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Active", "On Leave", "Inactive"],
+      enum: EMPLOYEE_STATUSES,
       default: "Active",
     },
     employeeImage: {
@@ -50,7 +51,7 @@ const employeeSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["Manager", "HR", "Employee"],
+      enum: EMPLOYEE_ROLES,
       default: "Employee",
     },
     previlege: {
@@ -58,8 +59,8 @@ const employeeSchema = new mongoose.Schema(
       default: false,
     },
     joinDate: {
-      type: Date, // is this needed because we will have timestamp too but still
-      default: Date.now,
+      type: Date,
+      required: false,
     },
   },
   { timestamps: true }

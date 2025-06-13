@@ -12,16 +12,16 @@ const departmentSchema = new mongoose.Schema(
       ref: "Organization",
       required: true,
     },
-    employees: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Employees",
-      },
-    ],
   },
   {
     timestamps: true,
   }
+);
+
+// In every organization, the department name will not be repeated
+departmentSchema.index(
+  { organization: 1, departmentName: 1 },
+  { unique: true }
 );
 
 const Department = mongoose.model("Department", departmentSchema);

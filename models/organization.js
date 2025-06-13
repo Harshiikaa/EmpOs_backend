@@ -1,5 +1,11 @@
 const { default: mongoose } = require("mongoose");
 const bcrypt = require("bcryptjs");
+const {
+  ACCEPTANCE_STATUS,
+  ORGANIZATION_STATUS,
+  ORGANIZATION_SIZE,
+  PLAN,
+} = require("../constants/enums");
 
 const organizationSchema = new mongoose.Schema(
   {
@@ -28,11 +34,11 @@ const organizationSchema = new mongoose.Schema(
     },
     size: {
       type: String,
-      enum: ["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"],
+      enum: ORGANIZATION_SIZE,
     },
     plan: {
       type: String,
-      enum: ["free", "basic", "professional", "enterprise"],
+      enum: PLAN,
       default: "free",
     },
     adminFirstName: {
@@ -66,12 +72,12 @@ const organizationSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["active", "inactive"],
+      enum: ORGANIZATION_STATUS,
       default: "active",
     },
     acceptanceStatus: {
       type: String,
-      enum: ["pending", "accepted", "rejected"],
+      enum: ACCEPTANCE_STATUS,
       default: "pending",
     },
   },

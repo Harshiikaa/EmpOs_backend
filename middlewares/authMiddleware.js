@@ -9,14 +9,18 @@ const protect = asyncHandler(async (req, res, next) => {
   if (!token) {
     return sendError(res, new Error("No token provided"), 401);
   }
+let decoded;
+try{
+   decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+} catch(err){
+  return sendError(res,new Error("Invalid or expired token"), 401);
+}
 
   const org = await Organization.findById(decoded.id).select("-password");
   // console.log("Decoded ID in middleware:", decoded.id);
   // console.log("req.user set to:", req.user);
   // console.log("Org found in DB:", org);
-
   if (!org) {
     return sendError(res, new Error("Admin not found"), 401);
   }
