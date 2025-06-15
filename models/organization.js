@@ -86,6 +86,7 @@ const organizationSchema = new mongoose.Schema(
   }
 );
 
+// custom method to compare the password coming from the req and the password in the db
 organizationSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };

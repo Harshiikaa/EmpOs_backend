@@ -1,5 +1,6 @@
 const { body } = require("express-validator");
 
+// validator to create Department
 exports.validateCreateDepartment = [
   body("departmentName")
     .trim()

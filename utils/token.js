@@ -1,3 +1,4 @@
+// generates jwt token
 exports.generateToken = (id, role = "admin") => {
   return jwt.sign(
     {

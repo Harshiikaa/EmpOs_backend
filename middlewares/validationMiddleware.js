@@ -1,6 +1,8 @@
 const { validationResult } = require("express-validator");
 const { sendError } = require("../utils/response");
 
+
+// validation handler of express-validator 
 exports.handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

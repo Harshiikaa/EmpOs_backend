@@ -7,6 +7,8 @@ const departmentSchema = new mongoose.Schema(
       required: true,
       maxlength: 100,
     },
+
+    // comes from Organization Table
     organization: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Organization",

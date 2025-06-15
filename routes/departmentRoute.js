@@ -15,6 +15,7 @@ const {
 const asyncHandler = require("../middlewares/asyncHandler");
 const { protect } = require("../middlewares/authMiddleware");
 
+// Route for Department Creation
 router.post(
   "/createDepartment",
   protect,
@@ -22,8 +23,9 @@ router.post(
   handleValidationErrors,
   asyncHandler(createDepartment)
 );
-
+// Route to get Department details
 router.get("/", protect, asyncHandler(getDepartments));
+// Route to get Department list only
 router.get("/departmentList", protect, asyncHandler(getDepartmentList));
 
 module.exports = router;

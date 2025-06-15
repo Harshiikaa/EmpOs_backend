@@ -8,6 +8,9 @@ const asyncHandler = require("../middlewares/asyncHandler");
 const { createEmployee } = require("../controllers/employeeController");
 const router = express.Router();
 
+
+// Route to Create Employees only by the admin
+
 router.post(
   "/createEmployee",
   protect,

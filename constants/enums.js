@@ -1,3 +1,4 @@
+// enums for the reusability
 exports.EMPLOYEE_ROLES = ["Manager", "HR", "Employee"];
 exports.EMPLOYEE_STATUSES = ["Active", "On Leave", "Inactive"];
 exports.ACCEPTANCE_STATUS = ["pending", "accepted", "rejected"];

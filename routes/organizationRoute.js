@@ -13,6 +13,8 @@ const {
   handleValidationErrors,
 } = require("../middlewares/validationMiddleware");
 
+// Route to register organization
+
 router.post(
   "/register",
   validateCreateOrganization,
@@ -20,6 +22,7 @@ router.post(
   asyncHandler(createOrganization)
 );
 
+// Route to login by the organization to the system
 router.post(
   "/login",
   validateLogin,

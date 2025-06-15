@@ -6,6 +6,7 @@ const {
   ORGANIZATION_SIZE,
 } = require("../constants/enums");
 
+// validator to create Organization
 exports.validateCreateOrganization = [
   body("organizationName")
     .notEmpty()
@@ -94,6 +95,7 @@ exports.validateCreateOrganization = [
     ),
 ];
 
+// validator for login
 exports.validateLogin = [
   body("adminEmail")
     .notEmpty()

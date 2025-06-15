@@ -2,7 +2,7 @@ const Department = require("../models/department");
 const { sendSuccess, sendError } = require("../utils/response");
 const departmentService = require("../services/departmentService");
 
-// Creates department but only but the admin of the assigned organization
+// Creates department but only by the admin of the associated organization
 const createDepartment = async (req, res) => {
   const { departmentName } = req.body;
   const department = await departmentService.createDepartment(
@@ -12,7 +12,7 @@ const createDepartment = async (req, res) => {
   return sendSuccess(res, department, "Successfully Department Created", 201);
 };
 
-// get Departments
+// get Departments details
 const getDepartments = async (req, res) => {
   const orgId = req.user._id;
   const departments = await departmentService.getDepartments(orgId);
@@ -22,6 +22,7 @@ const getDepartments = async (req, res) => {
   sendSuccess(res, departments, "Departments detail fetched successfully", 200);
 };
 
+// get department list only 
 const getDepartmentList = async (req, res) => {
   const orgId = req.user._id;
   const departmentList = await departmentService.getDepartmentList(orgId);

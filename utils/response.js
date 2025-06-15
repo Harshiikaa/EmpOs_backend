@@ -1,3 +1,4 @@
+// Sends a success response
 exports.sendSuccess = (res, data, message = "Success", statusCode = 200) => {
   return res.status(statusCode).json({
     sucess: true,
@@ -6,7 +7,7 @@ exports.sendSuccess = (res, data, message = "Success", statusCode = 200) => {
   });
 };
 
-
+// Sends an error response
 exports.sendError = (res, error, statusCode = 500) => {
   return res.status(statusCode).json({
     sucess: false,

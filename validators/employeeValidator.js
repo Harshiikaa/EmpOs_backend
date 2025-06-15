@@ -1,6 +1,9 @@
 const { body } = require("express-validator");
 const { EMPLOYEE_ROLES, EMPLOYEE_STATUSES } = require("../constants/enums");
-const {default_employee_avatar} = require("../assets/images/default-employee-avatar.jpg")
+const default_employee_avatar = "/assets/images/default-employee-avatar.jpg";
+
+// validator to create Employees
+
 exports.validateCreateEmployees = [
   body("firstName")
     .trim()
@@ -39,11 +42,10 @@ exports.validateCreateEmployees = [
     .optional()
     .isIn(EMPLOYEE_STATUSES)
     .withMessage(`Status must be one of : ${EMPLOYEE_STATUSES.join(", ")}`),
-  body("employeeImage")
-  .customSanitizer((value)=> {
-    if(!value || value.trim()==="") return default_employee_avatar;
-return value;
-  })
+  body("employeeImage").customSanitizer((value) => {
+    if (!value || value.trim() === "") return default_employee_avatar;
+    return value;
+  }),
 
   // .isURL()
   // .withMessage("Employee image must be a valid URL"),

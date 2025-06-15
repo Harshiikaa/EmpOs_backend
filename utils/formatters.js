@@ -1,3 +1,5 @@
+
+// format of the organization response 
 exports.formatOrgResponse = (organization) => ({
   _id: organization._id,
   organizationName: organization.organizationName,

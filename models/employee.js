@@ -30,6 +30,7 @@ const employeeSchema = new mongoose.Schema(
       ref: "Department",
       required: true,
     },
+    // position of the employee in the org
     position: {
       type: String,
       required: true,
@@ -40,6 +41,7 @@ const employeeSchema = new mongoose.Schema(
       ref: "Employee",
       default: null,
     },
+    // status of employee
     status: {
       type: String,
       enum: EMPLOYEE_STATUSES,
@@ -49,11 +51,13 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    // role of the employee from the enums
     role: {
       type: String,
       enum: EMPLOYEE_ROLES,
       default: "Employee",
     },
+    // special previlage to get access to more that the normal employee
     previlege: {
       type: Boolean,
       default: false,

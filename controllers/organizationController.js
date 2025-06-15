@@ -5,7 +5,7 @@ const { generateToken } = require("../utils/token");
 const { formatOrgResponse } = require("../utils/formatters");
 const organizationService = require("../services/organizationService");
 
-// register organization with admin
+// register organization + admin
 const createOrganization = async (req, res) => {
   const {
     organizationName,
@@ -38,12 +38,11 @@ const createOrganization = async (req, res) => {
   );
 };
 
-// login organization
-
+// login organization using admin details
 const login = async (req, res) => {
   // const { adminEmail, password } = req.body;
 
-  const organization = await organizationService.login(req.body );
+  const organization = await organizationService.login(req.body);
   // if (!organization) {
   //   return sendError(res, 401, "Invalid Email");
   // }

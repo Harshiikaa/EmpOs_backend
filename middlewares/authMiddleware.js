@@ -3,6 +3,8 @@ const asyncHandler = require("./asyncHandler");
 const { sendError } = require("../utils/response");
 const Organization = require("../models/organization");
 
+
+// middleware to check the token matches with the user 
 const protect = asyncHandler(async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
